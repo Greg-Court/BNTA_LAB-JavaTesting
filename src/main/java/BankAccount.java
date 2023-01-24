@@ -9,6 +9,7 @@ public class BankAccount {
     private LocalDate dateOfBirth;
     private int accountNumber;
     private double balance;
+    private String accountType;
 
     // Class Constructor ----------------------------------------------------------------------
 
