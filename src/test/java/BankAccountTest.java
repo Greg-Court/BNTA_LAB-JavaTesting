@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -20,6 +19,27 @@ public class BankAccountTest {
         assertThat(account.getBalance()).isEqualTo(60.00);
     }
 
-    
+    @Test
+    void overdraftLimitWorks() {
+        BankAccount account = new BankAccount();
+        account.setBalance(100.00);
+        account.setOverdraft(100.00);
+        account.withdraw(150.00);
+        assertThat(account.getBalance()).isEqualTo(-50.00);
+        account.withdraw(100.00);
+        assertThat(account.getBalance()).isEqualTo(-50.00);
+    }
+
+    @Test
+    void correctInterest() {
+        BankAccount account = new BankAccount();
+        account.setBalance(1000.00);
+        account.payInterest("current");
+        assertThat(account.getBalance()).isEqualTo(1010.00);
+        account.setBalance(1000.00);
+        account.payInterest("savings");
+        assertThat(account.getBalance()).isEqualTo(1050.00);
+    }
+
 
 }

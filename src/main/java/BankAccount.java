@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -10,14 +12,11 @@ public class BankAccount {
     private int accountNumber;
     private double balance;
     private String accountType;
+    private double overdraft;
 
     // Class Constructor ----------------------------------------------------------------------
 
-    public BankAccount (/**String inputFirstName, String inputLastName, LocalDate inputDateOfBirth, int inputAccountNumber**/) {
-//        this.firstName = inputFirstName;
-//        this.lastName = inputLastName;
-//        this.dateOfBirth = inputDateOfBirth;
-//        this.accountNumber = inputAccountNumber;
+    public BankAccount () {
         this.balance = 0;
     }
 
@@ -33,6 +32,10 @@ public class BankAccount {
     public void setAccountNumber (int accountNumber) { this.accountNumber = accountNumber; }
     public double getBalance() { return this.balance; }
     public void setBalance(double balance) { this.balance = balance; }
+    public String getAccountType() { return this.accountType; }
+    public void setAccountType(String accountType) { this.accountType = accountType; }
+    public double getOverdraft() { return this.overdraft; }
+    public void setOverdraft(double overdraft) { this.overdraft = overdraft; }
 
     // Class Methods ----------------------------------------------------------------------
 
@@ -41,11 +44,25 @@ public class BankAccount {
     }
 
     public void withdraw(double amount) {
-        this.balance -= amount;
+        double overdraft = this.getOverdraft();
+        if (this.balance - amount > -overdraft) {
+            this.balance -= amount;
+        }
+//        else {
+//            throw new IllegalArgumentException("You no money.");
     }
-    public void payInterest(double rate) {
-        double interest = this.balance * rate;
-        this.balance += interest;
+    public void payInterest(String accountType) {
+        switch(accountType) {
+            case "current":
+                double interestC = balance * 0.01;
+                this.balance += interestC;
+                break;
+            case "savings":
+                double interestS = balance * 0.05;
+                this.balance += interestS;
+                break;
+        }
     }
+
 
 }
