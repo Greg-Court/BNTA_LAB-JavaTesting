@@ -1,4 +1,7 @@
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class BankAccountTest {
@@ -41,5 +44,18 @@ public class BankAccountTest {
         assertThat(account.getBalance()).isEqualTo(1050.00);
     }
 
+    @Test
+    void canSetAccountType() {
+        BankAccount account = new BankAccount();
+        account.setAccountType("current");
+        assertThat(account.getAccountType()).isEqualTo("current");
+    }
+
+    @Test
+    void canSetDateOfBirth() {
+        BankAccount account = new BankAccount();
+        account.setDateOfBirth(LocalDate.of(1998, 10, 10));
+        assertThat(account.getDateOfBirth()).isEqualTo(LocalDate.of(1998,10,10));
+    }
 
 }
